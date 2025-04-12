@@ -1,0 +1,47 @@
+name: php-dev
+services:
+  php:
+    build:
+      context: .
+      dockerfile: php.Dockerfile
+    develop:
+      watch:
+        - path: .env
+          action: rebuild
+    volumes:
+      - type: bind
+        source: .
+        target: /mnt/programing/php
+      # - type: bind
+      #   source: .
+      #   target: /var/www/html
+      - type: volume
+        source: php-vscode-server
+        target: /root/.vscode-server
+    working_dir: /mnt/programing/php
+    ports:
+      - 127.0.0.1:8080:80
+    env_file:
+      # - .env
+      - .myenv
+    depends_on:
+      - db
+  db:
+    image: mongodb/mongodb-community-server:8.0-ubuntu2204
+    env_file:
+      - .myenv
+    volumes:
+      - type: bind
+        source: D:/Workspace/Programing/mongodb/ipz/data
+        target: /data/db
+      - type: bind
+        source: D:/Workspace/Programing/mongodb/ipz/scripts
+        target: /mnt/mongodb
+      # Опціонально: директорія з ініціалізаційними скриптами
+      - type: bind
+        source: D:/Workspace/Programing/mongodb/ipz/scripts
+        target: /docker-entrypoint-initdb.d
+    working_dir: /mnt/mongodb
+volumes:
+  php-vscode-server:
+    name: php-vscode-server
