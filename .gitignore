@@ -22,5 +22,5 @@ yarn-error.log
 /.vscode
 /.zed
 #my ignores
-docker/.php-server
-docker/.mongo
+*.env
+docker.ps1

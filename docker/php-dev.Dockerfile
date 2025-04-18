@@ -7,4 +7,8 @@ RUN apt update && apt full-upgrade -y\
     && apt clean\
     # install php extensions
     /usr/local/bin/install-php-extensions && \
-    install-php-extensions mongodb xdebug
+    install-php-extensions pdo_pgsql xdebug
+ARG WORKING_DIR=/mnt/programing/php
+ENV PHPRC=${WORKING_DIR}/php.ini
+WORKDIR ${WORKING_DIR}
+CMD php -S 0.0.0.0:80 -t ./public

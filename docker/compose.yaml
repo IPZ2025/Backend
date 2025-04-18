@@ -11,11 +11,8 @@ services:
       - type: volume
         source: php-vscode-server
         target: /root/.vscode-server
-    working_dir: /mnt/programing/php
-    command: php -S 0.0.0.0:80 -t /mnt/programing/php/public
-    environment:
-      - WORKING_DIR=/mnt/programing/php
-      - PHPRC=/mnt/programing/php/php.ini
+    env_file:
+      - ../.env
     ports:
       - 127.0.0.1:8000:80
     depends_on:
@@ -29,28 +26,31 @@ services:
     develop:
       watch:
         - path: ..
-          action: rebuild
+          action: sync
+          # ignore: "*.env"
+          target: /app
     ports:
       - 127.0.0.1:8080:80
-    # env_file:
-    #   - .php-server
+    env_file:
+      - ../.env
     depends_on:
       - db
   db:
-    image: mongodb/mongodb-community-server:8.0-ubuntu2204
+    image: postgres:17
     env_file:
-      - .mongo
+      - db.env
     volumes:
       - type: volume
-        source: ipz-mongodb-data
-        target: /data/db
+        source: ipz-postgres-data
+        target: /var/lib/postgresql/data
       # Опціонально: директорія з ініціалізаційними скриптами
-      - type: bind
-        source: D:/Workspace/Programing/mongodb/ipz/scripts
-        target: /docker-entrypoint-initdb.d
-    working_dir: /mnt/mongodb
+      # - type: bind
+      #   source: /docker/initdb.sql
+      #   target: /docker-entrypoint-initdb.d
+    ports:
+      - 127.0.0.1:5432:5432 
 volumes:
   php-vscode-server:
     name: php-vscode-server
-  ipz-mongodb-data:
-    name: ipz-mongodb-data
+  ipz-postgres-data:
+    name: ipz-postgres-data

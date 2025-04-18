@@ -7,12 +7,13 @@ RUN apt update && apt full-upgrade -y\
     && apt clean\
     # install php extensions
     /usr/local/bin/install-php-extensions && \
-    install-php-extensions mongodb xdebug
-ENV DOCUMENT_ROOT=/app/public PROJECT_ROOT=/app PHPRC=/app/php.ini
+    install-php-extensions pdo_pgsql xdebug
+ENV DOCUMENT_ROOT=/app/public PHPRC=/app/php.ini
+WORKDIR /app
 RUN a2enmod rewrite headers
 COPY /docker/server.conf /etc/apache2/sites-available/000-default.conf
-COPY --chown=www-data:www-data --chmod=775 . ${PROJECT_ROOT}
-RUN rm -r ${PROJECT_ROOT}/docker
+COPY --chown=www-data:www-data --chmod=775 . .
+RUN rm -r ./docker
 # COPY --chmod=+x docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 # ENTRYPOINT ["docker-entrypoint"]
 # CMD ["apache2-foreground"]
