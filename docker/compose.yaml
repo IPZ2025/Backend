@@ -27,7 +27,7 @@ services:
       watch:
         - path: ..
           action: sync
-          # ignore: "*.env"
+          ignore: /docker
           target: /app
     ports:
       - 127.0.0.1:8080:80
@@ -48,7 +48,13 @@ services:
       #   source: /docker/initdb.sql
       #   target: /docker-entrypoint-initdb.d
     ports:
-      - 127.0.0.1:5432:5432 
+      - 127.0.0.1:5432:5432
+  adminer:
+    image: adminer:5
+    ports:
+      - 127.0.0.1:800:8080
+    depends_on:
+      - db
 volumes:
   php-vscode-server:
     name: php-vscode-server

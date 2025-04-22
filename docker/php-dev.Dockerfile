@@ -6,8 +6,7 @@ RUN apt update && apt full-upgrade -y\
     && apt install nodejs git 7zip -y\
     && apt clean\
     # install php extensions
-    /usr/local/bin/install-php-extensions && \
-    install-php-extensions pdo_pgsql xdebug
+    && install-php-extensions pdo_pgsql xdebug
 ARG WORKING_DIR=/mnt/programing/php
 ENV PHPRC=${WORKING_DIR}/php.ini
 WORKDIR ${WORKING_DIR}
