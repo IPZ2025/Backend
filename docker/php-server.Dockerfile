@@ -4,9 +4,9 @@ ADD --chmod=+x https://github.com/mlocati/docker-php-extension-installer/release
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN apt update && apt full-upgrade -y\
     && apt install nodejs git 7zip -y\
-    && apt clean\
-    # install php extensions
-    && install-php-extensions pdo_pgsql xdebug
+    && apt clean
+# install php extensions
+RUN install-php-extensions pdo_pgsql xdebug
 ENV DOCUMENT_ROOT=/app/public PHPRC=/app/php.ini
 WORKDIR /app
 RUN a2enmod rewrite headers

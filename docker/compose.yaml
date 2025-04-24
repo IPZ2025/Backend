@@ -44,9 +44,9 @@ services:
         source: ipz-postgres-data
         target: /var/lib/postgresql/data
       # Опціонально: директорія з ініціалізаційними скриптами
-      # - type: bind
-      #   source: /docker/initdb.sql
-      #   target: /docker-entrypoint-initdb.d
+      - type: bind
+        source: ./initdb.sh
+        target: /docker-entrypoint-initdb.d/initdb.sh
     ports:
       - 127.0.0.1:5432:5432
   adminer:
