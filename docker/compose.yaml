@@ -14,7 +14,7 @@ services:
     env_file:
       - ../.env
     environment:
-    - LOGFILE_NAME="dev-laravel.log"
+      - LOGFILE_NAME="dev-laravel.log"
     ports:
       - 127.0.0.1:8000:80
     depends_on:
