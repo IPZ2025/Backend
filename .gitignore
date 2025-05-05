@@ -24,3 +24,4 @@ yarn-error.log
 #my ignores
 *.env
 docker.ps1
+/schemes

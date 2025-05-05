@@ -6,13 +6,15 @@ RUN apt update && apt full-upgrade -y\
     && apt install nodejs git 7zip -y\
     && apt clean
 # install php extensions
-RUN install-php-extensions pdo_pgsql xdebug
+RUN install-php-extensions pdo_pgsql xdebug pcntl
 ENV DOCUMENT_ROOT=/app/public PHPRC=/app/php.ini
 WORKDIR /app
 RUN a2enmod rewrite headers
 COPY /docker/server.conf /etc/apache2/sites-available/000-default.conf
 COPY --chown=www-data:www-data --chmod=775 . .
-RUN rm -r ./docker
+RUN rm -r ./docker\
+    && chmod -R 775 ./storage\
+    && chmod -R 775 ./bootstrap/cache
 # COPY --chmod=+x docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 # ENTRYPOINT ["docker-entrypoint"]
 # CMD ["apache2-foreground"]

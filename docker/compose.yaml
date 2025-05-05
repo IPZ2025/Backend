@@ -13,6 +13,8 @@ services:
         target: /root/.vscode-server
     env_file:
       - ../.env
+    environment:
+    - LOGFILE_NAME="dev-laravel.log"
     ports:
       - 127.0.0.1:8000:80
     depends_on:
@@ -33,6 +35,8 @@ services:
       - 127.0.0.1:8080:80
     env_file:
       - ../.env
+    environment:
+      - LOGFILE_NAME="server-laravel.log"
     depends_on:
       - db
   db:
