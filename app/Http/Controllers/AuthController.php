@@ -46,7 +46,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json($this->authService->getAuthUser());
+        return $this->authService->getAuthUser();
     }
 
     /**

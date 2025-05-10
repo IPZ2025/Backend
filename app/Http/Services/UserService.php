@@ -10,8 +10,8 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class UserService
 {
-    public function listUsers(){
-        return User::paginate();
+    public function listUserResources(){
+        return User::paginate()->toResourceCollection();
     }
 
     public function createUser(StoreUserRequest $request)
