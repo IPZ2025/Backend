@@ -1,11 +1,14 @@
 #!/bin/bash
 set -e
 
-# Встановлюємо правильні права доступу для Laravel
-chown -R www-data:www-data ${PROJECT_ROOT}/storage
-chown -R www-data:www-data ${PROJECT_ROOT}/bootstrap/cache
-chmod -R 775 ${PROJECT_ROOT}/storage
-chmod -R 775 ${PROJECT_ROOT}/bootstrap/cache
+./artisan cache:clear
+./artisan config:cache
+./artisan route:cache
+./artisan migrate:fresh
 
-# Виконуємо основну команду
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- apache2-foreground "$@"
+fi
+
 exec "$@"
