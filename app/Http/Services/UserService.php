@@ -24,20 +24,15 @@ class UserService
 
     public function createUser(StoreUserRequest $request)
     {
-        $user = User::firstOrNew(["email" => $request->input("email")]);
-        if ($user->exists) {
-            throw new ExistUserException("User with email " . $request->input("email") . " already exist");
-        } else {
-            $user = User::create([
-                "name" => $request->input("name"),
-                "surname" => $request->input("surname"),
-                "email" => $request->input("email"),
-                "password" => $request->input("password"),
-                "phone" => $request->input("phone"),
-                "addresses" => $request->input("addresses"),
-            ]);
-            return $user->toResource();
-        }
+        $user = User::create([
+            "name" => $request->input("name"),
+            "surname" => $request->input("surname"),
+            "email" => $request->input("email"),
+            "password" => $request->input("password"),
+            "phone" => $request->input("phone"),
+            "addresses" => $request->input("addresses"),
+        ]);
+        return $user->toResource();
     }
 
     /**

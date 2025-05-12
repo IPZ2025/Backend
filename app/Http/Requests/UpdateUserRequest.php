@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\EmailRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -27,7 +28,7 @@ class UpdateUserRequest extends FormRequest
             "surname" => "string|alpha",
             "password" => Password::default(),
             "phone" => 'regex:/\+380\d{9}$/',
-            "email" => "email",
+            "email" => ["email", new EmailRule],
             "address" => "string",
         ];
     }

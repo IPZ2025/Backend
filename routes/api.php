@@ -25,4 +25,4 @@ Route::prefix("v1/user/password")
         Route::post("forgot-password", "forgotPassword");
     });
 Route::apiResource("v1/user", UserController::class);
-Route::apiResource("v1/user.advertisement", AdvertisementController::class);
+Route::apiResource("v1/user.advertisements", AdvertisementController::class)->scoped();

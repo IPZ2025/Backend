@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\EmailRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -27,7 +28,7 @@ class StoreUserRequest extends FormRequest
             "surname" => "required|string|alpha",
             "password" => ["required", Password::default()],
             "phone" => ["required", 'regex:/\+380\d{9}$/'],
-            "email" => "required|email",
+            "email" => ["required", "email", new EmailRule],
             "address" => "string",
         ];
     }
