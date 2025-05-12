@@ -6,11 +6,19 @@ use App\Exceptions\ExistUserException;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Ren\Http\Services\Utils\AuthUtil;
 
 class UserService
 {
-    public function listUserResources(){
+    private $authUtil;
+
+    public function __construct(AuthUtil $authUtil)
+    {
+        $this->authUtil = $authUtil;
+    }
+
+    public function listUserResources()
+    {
         return User::paginate()->toResourceCollection();
     }
 
@@ -42,9 +50,7 @@ class UserService
 
     public function updateUser(UpdateUserRequest $request, User $user)
     {
-        if (auth()->user()->id != $user->id) {
-            throw new AccessDeniedHttpException("Try to update unauthenticated user");
-        }
+        $this->authUtil->checkUserAffiliation($user, "Try to update another user");
         $request->whenHas("name", fn() => $user->name = $request->input("name"));
         $request->whenHas("surname", fn() => $user->surname = $request->input("surname"));
         $request->whenHas("password", fn() => $user->password = $request->input("password"));
@@ -57,9 +63,7 @@ class UserService
 
     public function deleteUser(User $user)
     {
-        if (auth()->user()->id != $user->id) {
-            throw new AccessDeniedHttpException("Try to delete unauthenticated user");
-        }
+        $this->authUtil->checkUserAffiliation($user, "Try to delete another user");
         $user->delete();
         return $user->toResource();
     }

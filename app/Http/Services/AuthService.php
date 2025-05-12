@@ -2,12 +2,8 @@
 
 namespace App\Http\Services;
 
-use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
-use Illuminate\Validation\Rules\Password as PasswordRule;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class AuthService
 {

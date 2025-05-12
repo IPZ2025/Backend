@@ -41,7 +41,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function store(StoreUserRequest $request)
     {
-        return $this->userService->createUser($request);
+        return $this->userService->createUser($request)->response()->setStatusCode(201);
     }
 
     /**
