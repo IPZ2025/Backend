@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserController;
@@ -24,3 +25,4 @@ Route::prefix("v1/user/password")
         Route::post("forgot-password", "forgotPassword");
     });
 Route::apiResource("v1/user", UserController::class);
+Route::apiResource("v1/user.advertisement", AdvertisementController::class);
