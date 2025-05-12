@@ -12,8 +12,7 @@ WORKDIR /app
 RUN a2enmod rewrite headers
 COPY /docker/server.conf /etc/apache2/sites-available/000-default.conf
 COPY --chown=www-data:www-data --chmod=775 . .
-RUN rm -r ./docker\
-    && chmod -R 775 ./storage\
+RUN chmod -R 775 ./storage\
     && chmod -R 775 ./bootstrap/cache
 # COPY --chmod=+x docker-entrypoint.sh /usr/local/bin/docker-entrypoint
 # ENTRYPOINT ["docker-entrypoint"]

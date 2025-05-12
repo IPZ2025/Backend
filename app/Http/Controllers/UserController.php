@@ -33,7 +33,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        return response()->json($this->userService->listUsers());
+        return $this->userService->listUserResources();
     }
 
     /**
@@ -41,7 +41,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function store(StoreUserRequest $request)
     {
-        return response()->json($this->userService->createUser($request), 201);
+        return $this->userService->createUser($request)->response()->setStatusCode(201);
     }
 
     /**
@@ -49,7 +49,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function show(User $user)
     {
-        return response()->json($this->userService->getUserResource($user));
+        return $this->userService->getUserResource($user);
     }
 
     /**
@@ -57,7 +57,7 @@ class UserController extends Controller implements HasMiddleware
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        return response()->json($this->userService->updateUser($request, $user));
+        return $this->userService->updateUser($request, $user);
     }
 
     /**
@@ -65,6 +65,6 @@ class UserController extends Controller implements HasMiddleware
      */
     public function destroy(User $user)
     {
-        return response()->json($this->userService->deleteUser($user));
+        return $this->userService->deleteUser($user);
     }
 }
