@@ -23,6 +23,11 @@ class AdvertisementService
         return Advertisement::paginate()->toResourceCollection();
     }
 
+    public function listAdvertisementResourcesForUser(User $user)
+    {
+        return $user->advertisements()->paginate()->toResourceCollection();
+    }
+
     public function createAdvertisement(StoreAdvertisementRequest $request, User $user)
     {
         $this->authUtil->checkUserAffiliation($user, "Try to create advertisement for another user");
@@ -48,7 +53,8 @@ class AdvertisementService
         $request->whenHas("name", fn() => $advertisement->name = $request->input("name"));
         $request->whenHas("description", fn() => $advertisement->description = $request->input("description"));
         $request->whenHas("price", fn() => $advertisement->price = $request->input("price"));
-        //TODO
+        $request->whenHas("categories", fn() => $this->updateCategories($advertisement, $request->input("categories")));
+        $request->whenHas("photos", fn() => $this->updatePhotos($advertisement, $request->input("photos")));
     }
 
     public function deleteAdvertisement(User $user, Advertisement $advertisement)

@@ -24,5 +24,8 @@ Route::prefix("v1/user/password")
         Route::post("reset-password", "resetPassword")->name("password.reset");
         Route::post("forgot-password", "forgotPassword");
     });
+
+
+Route::get("v1/user/advertisements", [AdvertisementController::class, "indexAll"])->name("user.advertisements.indexAll");
 Route::apiResource("v1/user", UserController::class);
 Route::apiResource("v1/user.advertisements", AdvertisementController::class)->scoped();
