@@ -65,6 +65,7 @@ class AdvertisementService
     public function deleteAdvertisement(User $user, Advertisement $advertisement)
     {
         $this->authUtil->checkUserAffiliation($user, "Try to delete advertisement for another user");
+        $advertisement->load(['categories', 'photos']);
         $resource = $advertisement->toResource();
         $advertisement->delete();
         return $resource;
