@@ -15,7 +15,7 @@ class EmailRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (User::where("email", $value)->get()->isEmpty()) {
+        if (User::where("email", $value)->get()->isNotEmpty()) {
             $fail("User with email = $value already exist");
         }
     }
