@@ -22,7 +22,7 @@ class Advertisement extends Model
 
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class, "advertisements_categories");
     }
 
     public function photos()

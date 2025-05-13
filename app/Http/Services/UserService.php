@@ -51,7 +51,7 @@ class UserService
         $request->whenHas("password", fn() => $user->password = $request->input("password"));
         $request->whenHas("phone", fn() => $user->phone = $request->input("phone"));
         $request->whenHas("email", fn() => $user->email = $request->input("email"));
-        $request->whenHas("address", fn() => $user->address = $request->input("address"));
+        $request->whenHas("addresses", fn() => $user->addresses = $request->input("addresses"));
         $user->save();
         return $user->toResource();
     }
