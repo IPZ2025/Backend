@@ -31,13 +31,16 @@ class AdvertisementService
     public function createAdvertisement(StoreAdvertisementRequest $request, User $user)
     {
         $this->authUtil->checkUserAffiliation($user, "Try to create advertisement for another user");
-        $advertisement = Advertisement::create([
+        $advertisement = new Advertisement([
             "name" => $request->input("name"),
             "description" => $request->input("description"),
             "price" => $request->input("price"),
         ]);
+        $user->advertisements()->save($advertisement);
+
         $this->setCategories($advertisement, $request->input("categories"));
-        $this->setPhotos($advertisement, $request->input("photos"));
+        $request->whenHas("photos", fn() => $this->setPhotos($advertisement, $request->input("photos")));
+
         $advertisement->refresh();
         return $advertisement->toResource();
     }
@@ -55,30 +58,33 @@ class AdvertisementService
         $request->whenHas("price", fn() => $advertisement->price = $request->input("price"));
         $request->whenHas("categories", fn() => $this->updateCategories($advertisement, $request->input("categories")));
         $request->whenHas("photos", fn() => $this->updatePhotos($advertisement, $request->input("photos")));
+        $advertisement->save();
+        return $advertisement->toResource();
     }
 
     public function deleteAdvertisement(User $user, Advertisement $advertisement)
     {
         $this->authUtil->checkUserAffiliation($user, "Try to delete advertisement for another user");
+        $resource = $advertisement->toResource();
         $advertisement->delete();
-        return $advertisement->toRecource();
+        return $resource;
     }
 
-    protected function setCategories(Advertisement $advertisement, array $categories)
+    protected function setCategories(Advertisement &$advertisement, array $categories)
     {
         if (!empty($categories)) {
             $advertisement->categories()->attach($categories);
         }
     }
 
-    protected function updateCategories(Advertisement $advertisement, array $categories)
+    protected function updateCategories(Advertisement &$advertisement, array $categories)
     {
         if (!empty($categories)) {
             $advertisement->categories()->sync($categories);
         }
     }
 
-    protected function setPhotos(Advertisement $advertisement, array $photos)
+    protected function setPhotos(Advertisement &$advertisement, array $photos)
     {
         if (!empty($photos)) {
             $photos = collect($photos)->map(fn($item) => ["url" => $item]);
@@ -86,7 +92,7 @@ class AdvertisementService
         }
     }
 
-    protected function updatePhotos(Advertisement $advertisement, array $photos)
+    protected function updatePhotos(Advertisement &$advertisement, array $photos)
     {
         if (!empty($photos)) {
             $newPhotos = collect($photos);

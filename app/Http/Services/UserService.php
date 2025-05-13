@@ -2,7 +2,6 @@
 
 namespace App\Http\Services;
 
-use App\Exceptions\ExistUserException;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -59,7 +58,8 @@ class UserService
     public function deleteUser(User $user)
     {
         $this->authUtil->checkUserAffiliation($user, "Try to delete another user");
+        $resource = $user->toResource();
         $user->delete();
-        return $user->toResource();
+        return $resource;
     }
 }
