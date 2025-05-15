@@ -23,5 +23,6 @@ yarn-error.log
 /.zed
 #my ignores
 *.env
+*.env.testing
 docker.ps1
 /schemes

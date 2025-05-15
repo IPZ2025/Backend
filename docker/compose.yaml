@@ -11,8 +11,6 @@ services:
       - type: volume
         source: php-vscode-server
         target: /root/.vscode-server
-    env_file:
-      - ../.env
     environment:
       - LOGFILE_NAME="dev-laravel.log"
     ports:
