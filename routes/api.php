@@ -4,6 +4,7 @@ use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserController;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect("/", route("l5-swagger.default.api"));
@@ -24,5 +25,10 @@ Route::prefix("v1/user/password")
         Route::post("reset-password", "resetPassword")->name("password.reset");
         Route::post("forgot-password", "forgotPassword");
     });
+
+Route::get("v1/user/advertisements", [AdvertisementController::class, "indexAll"])->name("user.advertisements.indexAll");
+Route::get("v1/user/advertisements/categories", function () {
+    return Category::paginate();
+});
 Route::apiResource("v1/user", UserController::class);
-Route::apiResource("v1/user.advertisement", AdvertisementController::class);
+Route::apiResource("v1/user.advertisements", AdvertisementController::class)->scoped();

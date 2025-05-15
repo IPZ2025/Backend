@@ -25,14 +25,19 @@ class AdvertisementController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('auth', except: ['index', 'show']),
+            new Middleware('auth', except: ['index', 'indexAll', 'show']),
         ];
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(User $user)
+    {
+        return $this->advertisementService->listAdvertisementResourcesForUser($user);
+    }
+
+    public function indexAll()
     {
         return $this->advertisementService->listAdvertisementResources();
     }

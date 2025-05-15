@@ -12,4 +12,11 @@ class Photo extends Model
      * @var array<string>|bool
      */
     protected $guarded = [];
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
 }

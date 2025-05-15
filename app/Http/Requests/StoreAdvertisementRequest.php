@@ -25,7 +25,7 @@ class StoreAdvertisementRequest extends FormRequest
         return [
             "name" => "required|string|min:10|max:40",
             "description" => "required|string|min:10|max:500",
-            "price" => "required|decimal:2",
+            "price" => "required|integer|numeric",
             "categories" => "required|array|min:1",
             "categories.*" => ["numeric", "integer", new CategoryRule],
             "photos" => "array|min:1",

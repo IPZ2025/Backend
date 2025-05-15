@@ -2,7 +2,6 @@
 
 namespace App\Http\Services;
 
-use App\Exceptions\ExistUserException;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
@@ -24,20 +23,16 @@ class UserService
 
     public function createUser(StoreUserRequest $request)
     {
-        $user = User::firstOrNew(["email" => $request->input("email")]);
-        if ($user->exists) {
-            throw new ExistUserException("User with email " . $request->input("email") . " already exist");
-        } else {
-            $user = User::create([
-                "name" => $request->input("name"),
-                "surname" => $request->input("surname"),
-                "email" => $request->input("email"),
-                "password" => $request->input("password"),
-                "phone" => $request->input("phone"),
-                "addresses" => $request->input("addresses"),
-            ]);
-            return $user->toResource();
-        }
+        $user = User::create([
+            "name" => $request->input("name"),
+            "surname" => $request->input("surname"),
+            "email" => $request->input("email"),
+            "password" => $request->input("password"),
+            "phone" => $request->input("phone"),
+            "contacts" => $request->input("contacts"),
+            "addresses" => $request->input("addresses"),
+        ]);
+        return $user->toResource();
     }
 
     /**
@@ -56,7 +51,8 @@ class UserService
         $request->whenHas("password", fn() => $user->password = $request->input("password"));
         $request->whenHas("phone", fn() => $user->phone = $request->input("phone"));
         $request->whenHas("email", fn() => $user->email = $request->input("email"));
-        $request->whenHas("address", fn() => $user->address = $request->input("address"));
+        $request->whenHas("contacts", fn() => $user->contacts = $request->input("contacts"));
+        $request->whenHas("addresses", fn() => $user->addresses = $request->input("addresses"));
         $user->save();
         return $user->toResource();
     }
