@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('password', 100);
             $table->string('email', 250)->unique();
             $table->string('phone', 15);
+            $table->string("contacts", 50);
             $table->string('addresses', 100)->nullable();
             $table->timestamps();
         });

@@ -17,9 +17,23 @@ class AdvertisementFactory extends Factory
     public function definition(): array
     {
         return [
-            "name" => strtok(fake()->realText(50), " ,"),
+            "name" => $this->generateName(5),
             "description" => fake()->realText(150),
-            "price" => fake()->randomFloat(2, 10, 9000),
+            "price" => fake()->numberBetween(10, 9000),
         ];
+    }
+
+    private function generateName(int $minLen)
+    {
+        $names = fake()->realText(50);
+        $token = " ,.!?";
+        $name = strtok($names, $token);
+        while ($name !== false) {
+            $name = strtok($token);
+            if (strlen($name) >= $minLen) {
+                return $name;
+            }
+        }
+        return $names[0];
     }
 }

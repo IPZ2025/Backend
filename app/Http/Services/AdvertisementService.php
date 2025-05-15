@@ -66,9 +66,8 @@ class AdvertisementService
     {
         $this->authUtil->checkUserAffiliation($user, "Try to delete advertisement for another user");
         $advertisement->load(['categories', 'photos']);
-        $resource = $advertisement->toResource();
         $advertisement->delete();
-        return $resource;
+        return $advertisement->toResource();
     }
 
     protected function setCategories(Advertisement &$advertisement, array $categories)

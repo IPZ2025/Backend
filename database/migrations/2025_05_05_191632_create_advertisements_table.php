@@ -19,7 +19,7 @@ return new class extends Migration
             $table->id();
             $table->string("name", 40);
             $table->string("description", 500);
-            $table->float("price");
+            $table->bigInteger("price");
             $table->date("created_at");
             $table->foreignId("user_id")->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });

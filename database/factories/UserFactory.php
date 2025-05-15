@@ -29,6 +29,7 @@ class UserFactory extends Factory
             "password" => "Password",
             "email" => fake()->email(),
             "phone" => fake()->e164PhoneNumber(),
+            "contacts" => fake()->realText(50),
             "addresses" => fake()->address(),
         ];
     }

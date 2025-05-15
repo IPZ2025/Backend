@@ -58,8 +58,7 @@ class UserService
     public function deleteUser(User $user)
     {
         $this->authUtil->checkUserAffiliation($user, "Try to delete another user");
-        $resource = $user->toResource();
         $user->delete();
-        return $resource;
+        return $user->toResource();
     }
 }
