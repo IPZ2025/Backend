@@ -29,6 +29,7 @@ class UpdateUserRequest extends FormRequest
             "password" => Password::default(),
             "phone" => 'regex:/\+380\d{9}$/',
             "email" => ["email", new EmailRule],
+            "contacts" => "string|min:10|max:50",
             "addresses" => "string",
         ];
     }

@@ -25,7 +25,7 @@ class UpdateAdvertisementRequest extends FormRequest
         return [
             "name" => "string|min:10|max:40",
             "description" => "string|min:10|max:500",
-            "price" => "decimal:2",
+            "price" => "integer|numeric",
             "categories" => "array|min:1",
             "categories.*" => ["numeric", "integer", new CategoryRule],
             "photos" => "array",

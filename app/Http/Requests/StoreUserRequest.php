@@ -29,6 +29,7 @@ class StoreUserRequest extends FormRequest
             "password" => ["required", Password::default()],
             "phone" => ["required", 'regex:/\+380\d{9}$/'],
             "email" => ["required", "email", new EmailRule],
+            "contacts" => "string|min:10|max:50",
             "addresses" => "string",
         ];
     }
