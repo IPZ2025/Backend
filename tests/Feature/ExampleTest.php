@@ -1,19 +1,21 @@
 <?php
 
-namespace Tests\Feature;
+use App\Http\Requests\StoreUserRequest;
 
-// use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+// it('returns a successful response', function () {
+//     $response = $this->get('/');
+//     $response->assertStatus(200);
+// });
 
-class ExampleTest extends TestCase
-{
-    /**
-     * A basic test example.
-     */
-    public function test_the_application_returns_a_successful_response(): void
-    {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
-    }
-}
+// test("creating user", function () {
+//     echo get_class($this);
+//     $response = $this->postJson("/api/v1/user", [
+//         "name" => "Billy",
+//         "surname" => "Herrington",
+//         "password" => "qwertyuiop12345$",
+//         "phone" => "+380123456789",
+//         "email" => "sergeysolovyov2016@gmail.com"
+//     ]);
+//     $response->assertStatus(201);
+// });
