@@ -22,6 +22,7 @@ class AdvertisementResource extends JsonResource
             "created_at" => $this->created_at,
             "categories" => $this->categories->map(fn($item) => $item->name),
             "photos" => $this->photos->map(fn($item) => $item->url),
+            "user_id" => $this->user->id,
         ];
     }
 }
