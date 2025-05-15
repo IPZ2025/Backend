@@ -30,6 +30,7 @@ class UpdateUserRequest extends FormRequest
             "phone" => 'regex:/\+380\d{9}$/',
             "email" => ["email", new EmailRule],
             "contacts" => "string|min:10|max:50",
+            "image_url" => "url|max:50",
             "addresses" => "string",
         ];
     }
