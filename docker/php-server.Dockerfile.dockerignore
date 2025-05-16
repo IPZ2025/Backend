@@ -27,3 +27,5 @@ README.md
 **/*.dockerignore
 /schemes/
 **/*.env
+!**/.env
+**/*.env.testing
