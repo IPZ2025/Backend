@@ -5,7 +5,7 @@ use App\Http\Resources\UserResource;
 use App\Http\Services\UserService;
 use Ren\Http\Services\Utils\AuthUtil;
 
-test('create user and returns resource', function () {
+test('create user and returns resource(mocking)', function () {
     // Arrange
     $userData = [
         "name" => "Billy",
@@ -35,3 +35,40 @@ test('create user and returns resource', function () {
     // Assert
     expect($result)->toBeInstanceOf(UserResource::class);
 });
+
+test('create user and returns resource(object)', function () {
+    // Arrange
+    $userData = [
+        "name" => "Billy",
+        "surname" => "Herrington",
+        "password" => "qwertyuiop12345$",
+        "phone" => "+380123456789",
+        "email" => "sergeysolovyov2016@gmail.com",
+    ];
+
+    $request = new StoreUserRequest(request: $userData, server: ["REQUEST_METHOD" => "POST"]);
+
+    $userService = new UserService(new AuthUtil());
+
+    // Act
+    $result = $userService->createUser($request);
+
+    // Assert
+    expect($result)->toBeInstanceOf(UserResource::class);
+});
+
+function mockStoreUserRequest(&$context, $userData)
+{
+    $request = $context->mock(StoreUserRequest::class);
+    $request->shouldReceive('input')->with(Mockery::anyOf(
+        "name",
+        "surname",
+        "email",
+        "password",
+        "phone",
+        "image_url",
+        "contacts",
+        "addresses",
+    ))->andReturnUsing(fn($key) => array_key_exists($key, $userData) ? $userData[$key] : null);
+    return $request;
+}
