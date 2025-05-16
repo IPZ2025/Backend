@@ -1,10 +1,10 @@
 #!/bin/bash
 set -e
 
+./artisan migrate:fresh --seed
 ./artisan cache:clear
 ./artisan config:cache
 ./artisan route:cache
-./artisan migrate:fresh --seed
 
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
