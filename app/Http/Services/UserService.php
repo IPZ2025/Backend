@@ -52,7 +52,7 @@ class UserService
         $request->whenHas("password", fn() => $user->password = $request->input("password"));
         $request->whenHas("phone", fn() => $user->phone = $request->input("phone"));
         $request->whenHas("email", fn() => $user->email = $request->input("email"));
-        $request->whenHas("image_base64", fn() => $user->image_url = $request->input("image_base64"));
+        $request->whenHas("image_base64", fn() => $user->image_base64 = $request->input("image_base64"));
         $request->whenHas("contacts", fn() => $user->contacts = $request->input("contacts"));
         $request->whenHas("addresses", fn() => $user->addresses = $request->input("addresses"));
         $user->save();

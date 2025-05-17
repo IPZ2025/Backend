@@ -17,10 +17,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $categories = Category::all();
+        User::factory()->count(15)->create();
         User::factory()->has(
             Advertisement::factory()->hasAttached(
                 $categories->get(fake()->numberBetween(0, $categories->count()))
-            )->count(2)
-        )->count(30)->create();
+            )->count(1)
+        )->count(10)->create();
     }
 }
