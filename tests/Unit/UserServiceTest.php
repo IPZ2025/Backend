@@ -28,7 +28,7 @@ test("create user and returns resource(mock)", function () {
         "email",
         "password",
         "phone",
-        "image_url",
+        "image_base64",
         "contacts",
         "addresses",
     ))->andReturnUsing(fn($key) => array_key_exists($key, $userData) ? $userData[$key] : null);
@@ -67,7 +67,7 @@ test("update user and returns resource(mock)", function () {
         "email",
         "password",
         "phone",
-        "image_url",
+        "image_base64",
         "contacts",
         "addresses",
     ))->andReturnUsing(fn($key) => array_key_exists($key, $userData) ? $userData[$key] : null);
@@ -77,7 +77,7 @@ test("update user and returns resource(mock)", function () {
         "email",
         "password",
         "phone",
-        "image_url",
+        "image_base64",
         "contacts",
         "addresses",
     ), Mockery::type("Closure"))->andReturnUsing(fn($key, $callable) => array_key_exists($key, $userData) ? $userData[$key] : $callable());
