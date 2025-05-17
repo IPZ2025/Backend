@@ -52,6 +52,10 @@ services:
       - 127.0.0.1:800:8080
     depends_on:
       - db
+  plant-uml:
+    image: plantuml/plantuml-server:tomcat
+    ports:
+      - 127.0.0.1:8001:8080
 volumes:
   php-vscode-server:
     name: php-vscode-server
