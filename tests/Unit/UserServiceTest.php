@@ -19,7 +19,7 @@ test("create user and returns resource(mock)", function () {
         "surname" => "Herrington",
         "password" => "qwertyuiop12345$",
         "phone" => "+380123456789",
-        "email" => "sergeysolovyov2016@gmail.com",
+        "email" => "qwertyuiop12345$@gmail.com",
     ];
     $request = $this->mock(StoreUserRequest::class);
     $request->shouldReceive("input")->with(Mockery::anyOf(
@@ -38,13 +38,12 @@ test("create user and returns resource(mock)", function () {
 });
 
 test("create user and returns resource(object)", function () {
-    // Arrange
     $userData = [
         "name" => "Billy",
         "surname" => "Herrington",
         "password" => "qwertyuiop12345$",
         "phone" => "+380123456789",
-        "email" => "sergeysolovyov2016@gmail.com",
+        "email" => "qwertyuiop12345$@gmail.com",
     ];
     $request = new StoreUserRequest(request: $userData, server: ["REQUEST_METHOD" => "POST"]);
     $userService = new UserService(new AuthUtil());
@@ -59,7 +58,7 @@ test("update user and returns resource(mock)", function () {
         "surname" => "Herrington",
         "password" => "qwertyuiop12345$",
         "phone" => "+380123456789",
-        "email" => "sergeysolovyov2016@gmail.com",
+        "email" => "qwertyuiop12345$@gmail.com",
     ];
     $request = $this->mock(UpdateUserRequest::class);
     $request->shouldReceive("input")->with(Mockery::anyOf(
@@ -96,7 +95,7 @@ test("update user and returns resource(object)", function () {
         "surname" => "Herrington",
         "password" => "qwertyuiop12345$",
         "phone" => "+380123456789",
-        "email" => "sergeysolovyov2016@gmail.com",
+        "email" => "qwertyuiop12345$@gmail.com",
     ];
     $request = new UpdateUserRequest(request: $userData, server: ["REQUEST_METHOD" => "POST"]);
     Auth::shouldReceive("user")->andReturn($user);
