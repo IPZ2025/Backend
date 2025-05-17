@@ -30,7 +30,7 @@ class StoreUserRequest extends FormRequest
             "phone" => ["required", 'regex:/\+380\d{9}$/'],
             "email" => ["required", "email", new EmailRule],
             "contacts" => "string|min:10|max:50",
-            "image_url" => "url|max:50",
+            "image_base64" => "string|max:60000",
             "addresses" => "string",
         ];
     }
